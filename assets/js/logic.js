@@ -4,11 +4,12 @@ var startButton = document.querySelector("#start");
 var questions = document.querySelector("#questions");
 var questionTitle = document.querySelector("#question-title");
 var choices = document.querySelector("#choices");
+var endScreen = document.querySelector("#end-screen");
+var finalScore = document.querySelector("#final-score");
+var submit = document.querySelector("#submit");
 var i = 0;
 var timer = 30;
 var score = 0;
-var endScreen = document.querySelector("#end-screen");
-var finalScore = document.querySelector("#final-score");
 var clock = "";
 
 function addQuestion(q) {
@@ -63,14 +64,24 @@ function nextQuestion() {
 
 
 function onButtonClick() {
-  startScreen.innerHTML = "";
+  startScreen.classList.add("hide");
   questions.classList.remove("hide");
   addQuestion(quiz[i]);
   time();
 }
 
+function saveResult(){
+  i = 0;
+  timer = 30;
+  score = 0;
+  clock = "";
+  timerEl.textContent = timer;
+  var initials = document.querySelector("#initials")
+  localStorage.setItem(initials.value, score);
+  endScreen.classList.add("hide");
+  startScreen.classList.remove("hide");
+  
+}
+
 startButton.addEventListener("click", onButtonClick)
-
-
-
-// on highscores, show highscore page
+submit.addEventListener("click", saveResult)
