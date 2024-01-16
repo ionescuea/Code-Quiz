@@ -1,5 +1,5 @@
 # Code-Quiz
-A multiple-choice quiz
+A multiple-choice quiz.
 
 ## Description
 
