@@ -12,6 +12,7 @@ var timer = 30;
 var score = 0;
 var clock = "";
 
+// add questions and answers
 function addQuestion(q) {
   questionTitle.textContent = q.question;
   choices.innerHTML = `
@@ -24,6 +25,7 @@ function addQuestion(q) {
   }
 }
 
+// reduce time every second
 function time() {
   clock = setInterval(function () {
     timerEl.textContent = timer;
@@ -36,6 +38,7 @@ function time() {
   }, 1000);
 }
 
+// show the end screen
 function endGame() {
   clearInterval(clock);
   questions.classList.add("hide");
@@ -43,9 +46,9 @@ function endGame() {
   finalScore.textContent = score;
 }
 
+// validate answer and go to the next screen
 function nextQuestion() {
   if (this.textContent != quiz[i].correctAnswer) {
-    // reduce time if wrong answer
     timer -= 10;
   }
   else {
@@ -55,14 +58,11 @@ function nextQuestion() {
     i++;
     addQuestion(quiz[i]);
   } else {
-    // else show end screen
     endGame();
   }
-
-  // on submit add results to local storage
 }
 
-
+// start quiz
 function onButtonClick() {
   startScreen.classList.add("hide");
   questions.classList.remove("hide");
@@ -70,18 +70,19 @@ function onButtonClick() {
   time();
 }
 
+// save results to local storage and navigate to highscores
 function saveResult(){
+  var initials = document.querySelector("#initials");
+  localStorage.setItem(initials.value, score);
   i = 0;
   timer = 30;
   score = 0;
   clock = "";
   timerEl.textContent = timer;
-  var initials = document.querySelector("#initials")
-  localStorage.setItem(initials.value, score);
-  endScreen.classList.add("hide");
-  startScreen.classList.remove("hide");
-  
+  initials.value = "";
+  document.links[0].click();
 }
 
-startButton.addEventListener("click", onButtonClick)
-submit.addEventListener("click", saveResult)
+// event listeners
+startButton.addEventListener("click", onButtonClick);
+submit.addEventListener("click", saveResult);

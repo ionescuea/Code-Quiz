@@ -17,4 +17,5 @@ function clearHighscores() {
 
 }
 
+// event listeners
 clearButton.addEventListener("click", clearHighscores);
